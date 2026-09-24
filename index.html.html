@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz — DNA e RNA</title>
+<style>
+body{font-family:Arial,sans-serif;background:#bfe8f5;color:#111;margin:0;padding:25px}
+.container{max-width:850px;margin:auto;background:white;padding:30px;border-radius:20px;box-shadow:0 8px 25px #0002}
+h1{text-align:center;background:#bfe8f5;padding:18px;border-radius:15px}
+.question{margin:24px 0;padding:18px;border:2px solid #bfe8f5;border-radius:14px}
+label{display:block;padding:9px;margin:6px 0;background:#f5fbfd;border-radius:8px;cursor:pointer}
+button{display:block;margin:25px auto 10px;background:#111;color:white;border:0;padding:14px 30px;border-radius:10px;font-size:17px;cursor:pointer}
+#result{text-align:center;font-size:22px;font-weight:bold;margin-top:20px}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>🧬 Quiz — DNA e RNA</h1>
+<form id="quiz"></form>
+<button type="button" onclick="corrigir()">Ver resultado</button>
+<div id="result"></div>
+</div>
+<script>
+const qs = [
+["O que são ácidos nucleicos?",["Moléculas formadas por aminoácidos","Polímeros formados por nucleotídeos","Moléculas formadas apenas por proteínas","Carboidratos formados por glicose"],1],
+["Quais são os dois tipos de ácidos nucleicos existentes?",["DNA e ATP","DNA e RNA","RNA e proteínas","DNA e aminoácidos"],1],
+["Quais são os três componentes de um nucleotídeo?",["Grupo fosfato, pentose e base nitrogenada","Proteína, glicose e fosfato","Aminoácido, ribose e proteína","Lipídio, pentose e fosfato"],0],
+["Qual açúcar está presente no DNA?",["Ribose","Glicose","Desoxirribose","Frutose"],2],
+["Qual açúcar está presente no RNA?",["Desoxirribose","Ribose","Glicose","Sacarose"],1],
+["Qual base nitrogenada está presente no RNA, mas não no DNA?",["Adenina","Guanina","Timina","Uracila"],3],
+["Como as bases nitrogenadas são classificadas de acordo com sua estrutura?",["Açúcares e fosfatos","Purinas e pirimidinas","Riboses e desoxirriboses","Genes e nucleotídeos"],1],
+["Quais bases nitrogenadas são classificadas como purinas?",["Citosina e timina","Timina e uracila","Adenina e guanina","Citosina e uracila"],2],
+["No DNA, qual é o pareamento correto das bases nitrogenadas?",["Adenina–guanina e timina–citosina","Adenina–timina e guanina–citosina","Adenina–uracila e guanina–timina","Citosina–timina e adenina–guanina"],1],
+["Qual é uma das principais funções do DNA?",["Armazenar informações hereditárias","Produzir energia para a célula","Transportar oxigênio","Realizar a digestão"],0],
+["Como o RNA se diferencia estruturalmente do DNA, de acordo com o texto?",["O RNA possui duas cadeias e o DNA uma","O RNA geralmente apresenta uma cadeia simples, enquanto o DNA apresenta duas","Ambos possuem sempre três cadeias","O RNA não possui bases nitrogenadas"],1],
+["Qual é a relação do RNA com a síntese de proteínas?",["O RNA participa do processo de síntese de proteínas","O RNA impede a formação de proteínas","O RNA substitui completamente o DNA","O RNA transforma proteínas em DNA"],0],
+["Algumas moléculas de RNA podem apresentar função catalítica. Como são chamadas?",["Ribossomos","Ribozimas","Nucleotídeos","Enzimas proteicas"],1]
+];
+const form=document.getElementById("quiz");
+qs.forEach((q,i)=>{
+ let d=document.createElement("div");d.className="question";
+ d.innerHTML=`<b>${i+1}. ${q[0]}</b>`+q[1].map((a,j)=>`<label><input type="radio" name="q${i}" value="${j}"> ${String.fromCharCode(97+j)}) ${a}</label>`).join("");
+ form.appendChild(d);
+});
+function corrigir(){
+ let score=0, unanswered=0;
+ qs.forEach((q,i)=>{let x=document.querySelector(`input[name=q${i}]:checked`);if(!x)unanswered++;else if(+x.value===q[2])score++;});
+ document.getElementById("result").innerHTML=`Você acertou <b>${score}</b> de ${qs.length}!${unanswered?`<br><small>${unanswered} questão(ões) sem resposta.</small>`:""}`;
+}
+</script>
+</body></html>
